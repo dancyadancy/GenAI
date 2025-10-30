@@ -14,25 +14,25 @@ export interface APIResponse {
   providedIn: 'root'
 })
 export class AIService {
-  private apiUrl = 'YOUR_AI_API_URL'; // 替换为你的AI API地址
-  private apiKey = 'YOUR_API_KEY'; // 替换为你的API密钥
+  private apiUrl = 'YOUR_AI_API_URL'; // Replace with your AI API URL
+  private apiKey = 'YOUR_API_KEY'; // Replace with your API key
 
   constructor(private http: HttpClient) { }
 
   /**
-   * 调用AI API获取响应
-   * @param userMessage 用户消息
-   * @param conversationHistory 对话历史
+   * Call AI API to get a response
+   * @param userMessage The user's message
+   * @param conversationHistory Conversation history
    */
   getAIResponse(
     userMessage: string,
     conversationHistory: AIMessage[] = []
   ): Observable<AIMessage> {
     this.apiUrl = "http://localhost:3000/api/chat/agentscope";
-    // 构建prompt
+    // Build prompt
     const prompt = this.buildPrompt(userMessage, conversationHistory);
 
-    // 如果有真实的AI API，取消注释以下代码
+    // If you have a real AI API, uncomment the code below
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.apiKey}`
@@ -57,30 +57,30 @@ export class AIService {
       })
     );
 
-    // 模拟响应（用于开发和测试）
+    // Simulated response (for development and testing)
     return of(this.simulateAIResponse(userMessage));
   }
 
   /**
-   * 构建Prompt
+   * Build Prompt
    */
   private buildPrompt(userMessage: string, history: AIMessage[]): string {
     let prompt = AI_PROMPT_TEMPLATE.replace('{{USER_QUESTION}}', userMessage);
 
-    // 添加对话历史上下文
+    // Append conversation history context
     if (history.length > 0) {
       const historyContext = history
-        .slice(-5) // 只保留最近5条消息
+        .slice(-5) // Keep only the last 5 messages
         .map(msg => `${msg.role}: ${msg.content}`)
         .join('\n');
-      prompt += `\n\n## 对话历史\n${historyContext}`;
+      prompt += `\n\n## Conversation History\n${historyContext}`;
     }
 
     return prompt;
   }
 
   /**
-   * 构建OpenAI格式的消息数组
+   * Build messages in OpenAI format
    */
   private buildMessages(history: AIMessage[], userMessage: string): any[] {
     const messages = [
@@ -90,7 +90,7 @@ export class AIService {
       }
     ];
 
-    // 添加历史消息
+    // Add history messages
     history.forEach(msg => {
       if (msg.content) {
         messages.push({
@@ -100,7 +100,7 @@ export class AIService {
       }
     });
 
-    // 添加当前用户消息
+    // Add current user message
     messages.push({
       role: 'user',
       content: userMessage
@@ -110,26 +110,26 @@ export class AIService {
   }
 
   /**
-   * 解析AI响应
+   * Parse AI response
    */
   private parseAIResponse(response: any, userMessage: string): AIMessage {
     try {
       let content: string | undefined;
       let component: ComponentData | undefined;
 
-      // 如果AI返回的是JSON字符串
+      // If AI returns a JSON string
       if (typeof response.choices?.[0]?.message?.content === 'string') {
         const jsonStr = response.choices[0].message.content;
         const parsed = JSON.parse(jsonStr);
         content = parsed.content;
         component = parsed.component;
       }
-      // 如果AI直接返回JSON对象
+      // If AI returns a JSON object directly
       else if (response.content || response.component) {
         content = response.content;
         component = response.component;
       }
-      // 如果只是文本
+      // If response is plain text
       else {
         content = response.choices?.[0]?.message?.content || response.content || 'I understand your question.';
       }
@@ -147,58 +147,58 @@ export class AIService {
   }
 
   /**
-   * 模拟AI响应（用于测试）
+   * Simulated AI response (for testing)
    */
   private simulateAIResponse(userMessage: string): AIMessage {
     const lowerMessage = userMessage.toLowerCase();
 
-    // 根据关键词返回不同的组件类型
-    if (lowerMessage.includes('table') || lowerMessage.includes('表格') || lowerMessage.includes('列表数据')) {
+    // Return different component types based on keywords
+    if (lowerMessage.includes('table') || lowerMessage.includes('tabular') || lowerMessage.includes('status')) {
       return {
         role: 'assistant',
-        content: '这是井的状态数据表格：',
+        content: 'Here is the well status data table:',
         component: {
           type: 'table',
           data: {
-            headers: ['井名', '状态', '警报数', '风险评分'],
+            headers: ['Well', 'Status', 'Alerts', 'Risk Score'],
             rows: [
-              ['Well-001', '运行中', '2', '9.3'],
-              ['Well-002', '运行中', '1', '7.8'],
-              ['Well-003', '运行中', '3', '8.5'],
-              ['Well-004', '运行中', '0', '6.2']
+              ['Well-001', 'Running', '2', '9.3'],
+              ['Well-002', 'Running', '1', '7.8'],
+              ['Well-003', 'Running', '3', '8.5'],
+              ['Well-004', 'Running', '0', '6.2']
             ],
-            title: '井状态汇总'
+            title: 'Well Status Summary'
           }
         },
         timestamp: new Date()
       };
-    } else if (lowerMessage.includes('list') || lowerMessage.includes('清单') || lowerMessage.includes('警报')) {
+    } else if (lowerMessage.includes('list') || lowerMessage.includes('alerts')) {
       return {
         role: 'assistant',
-        content: '这是活动警报列表：',
+        content: 'Here is the list of active alerts:',
         component: {
           type: 'list',
           data: {
-            title: '活动警报',
+            title: 'Active Alerts',
             items: [
-              { title: '异常吊重', description: 'Well-001', icon: 'warning', status: 'High' },
-              { title: '异常井眼清洁指数', description: 'Well-002', icon: 'warning', status: 'Medium' },
-              { title: '钻杆完整性检查', description: 'Well-003', icon: 'check_circle', status: 'Valid' },
-              { title: '扭矩异常', description: 'Well-001', icon: 'error', status: 'High' }
+              { title: 'Abnormal Hookload', description: 'Well-001', icon: 'warning', status: 'High' },
+              { title: 'Abnormal Hole Cleaning Index', description: 'Well-002', icon: 'warning', status: 'Medium' },
+              { title: 'Drillstring Integrity Check', description: 'Well-003', icon: 'check_circle', status: 'Valid' },
+              { title: 'Torque Anomaly', description: 'Well-001', icon: 'error', status: 'High' }
             ]
           }
         },
         timestamp: new Date()
       };
-    } else if (lowerMessage.includes('chart') || lowerMessage.includes('图表') || lowerMessage.includes('趋势')) {
+    } else if (lowerMessage.includes('chart') || lowerMessage.includes('trend')) {
       return {
         role: 'assistant',
-        content: '这是钻井性能趋势图表：',
+        content: 'This is the drilling performance trend chart:',
         component: {
           type: 'chart',
           data: {
             type: 'bar',
-            title: '钻井性能对比',
+            title: 'Drilling Performance Comparison',
             data: [
               { label: 'Well-001', value: 92 },
               { label: 'Well-002', value: 78 },
@@ -212,19 +212,19 @@ export class AIService {
     } else {
       return {
         role: 'assistant',
-        content: '我已理解您的问题。我将分析并调用相应的API接口来获取所需信息。',
+        content: 'I understand your question. I will analyze it and call the appropriate APIs to retrieve the required information.',
         timestamp: new Date()
       };
     }
   }
 
   /**
-   * 降级响应（API失败时使用）
+   * Fallback response (used when API fails)
    */
   private getFallbackResponse(userMessage: string): AIMessage {
     return {
       role: 'assistant',
-      content: '抱歉，AI服务暂时不可用。请稍后再试。',
+      content: 'Sorry, the AI service is temporarily unavailable. Please try again later.',
       timestamp: new Date()
     };
   }
