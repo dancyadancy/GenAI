@@ -1,0 +1,172 @@
+.well-card {
+  background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.9) 100%);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .card-header {
+    .well-name {
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .well-activity {
+      font-size: 14px;
+      color: #b0b0b0;
+    }
+  }
+
+  .card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .alarms-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .section-title {
+      margin-bottom: 12px;
+
+      .alarm-count {
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
+      }
+    }
+
+    .alarms-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      .alarm-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: #ffffff;
+        padding: 6px 0;
+
+        .alarm-indicator {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #f44336;
+          flex-shrink: 0;
+          box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+        }
+
+        .alarm-name {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .packoff-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .workflow-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .workflow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+
+      .workflow-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding: 4px 0;
+
+        .workflow-name {
+          color: #e0e0e0;
+          flex: 1;
+        }
+
+        .workflow-status {
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 11px;
+          font-weight: 500;
+          color: #ffffff;
+          text-transform: capitalize;
+          white-space: nowrap;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+
+  .time-indicator {
+    text-align: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+
+    .days-value {
+      font-size: 24px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .days-label {
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+  }
+}

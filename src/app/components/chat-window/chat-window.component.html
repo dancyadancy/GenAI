@@ -1,0 +1,96 @@
+<div class="chat-window" [class.open]="isOpen" [class.standalone]="standaloneMode">
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="header-title">Chat with OdinEye</div>
+    <div class="header-actions">
+      <button 
+        *ngIf="!standaloneMode" 
+        class="icon-button" 
+        (click)="hideWindow()" 
+        title="Hide">
+        <span class="material-icons">remove</span>
+      </button>
+      <button 
+        *ngIf="!standaloneMode" 
+        class="icon-button" 
+        (click)="openInNewWindow()" 
+        title="Open in new window">
+        <span class="material-icons">open_in_new</span>
+      </button>
+      <button class="icon-button" (click)="closeWindow()" title="Close">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Content -->
+  <div class="chat-content" *ngIf="isOpen">
+    <!-- AI Avatar Section (when no messages) -->
+    <div class="ai-avatar-section" *ngIf="messages.length === 0">
+      <div class="ai-avatar">
+        <div class="avatar-circle">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="35" fill="#2196f3" opacity="0.2" />
+            <circle cx="40" cy="40" r="25" fill="#2196f3" />
+            <!-- Eye pattern -->
+            <circle cx="35" cy="35" r="4" fill="#ffffff" />
+            <circle cx="45" cy="35" r="4" fill="#ffffff" />
+            <path d="M 30 45 Q 40 50 50 45" stroke="#ffffff" stroke-width="2" fill="none" />
+          </svg>
+        </div>
+        <div class="avatar-glow"></div>
+      </div>
+
+      <!-- Preset Questions -->
+      <div class="preset-questions">
+        <button
+          *ngFor="let question of presetQuestions"
+          class="preset-button"
+          (click)="sendPresetQuestion(question.text)">
+          <span class="material-icons">{{ question.icon }}</span>
+          <span>{{ question.text }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages-container" *ngIf="messages.length > 0">
+      <div
+        *ngFor="let message of messages"
+        class="message"
+        [class.user-message]="message.role === 'user'"
+        [class.assistant-message]="message.role === 'assistant'">
+        <div class="message-content" *ngIf="message.content">{{ message.content }}</div>
+        <!-- 动态组件渲染 -->
+        <app-ai-component-renderer 
+          *ngIf="message.component" 
+          [componentData]="message.component">
+        </app-ai-component-renderer>
+      </div>
+      <!-- Loading indicator -->
+      <div *ngIf="isLoading" class="message assistant-message">
+        <div class="loading-indicator">
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input-area" *ngIf="isOpen">
+    <div class="input-wrapper">
+      <input
+        type="text"
+        class="message-input"
+        placeholder="Message..."
+        [(ngModel)]="inputMessage"
+        (keyup.enter)="sendMessage()"
+      />
+      <button class="send-button" (click)="sendMessage()">
+        <span class="material-icons">send</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="well-card">
+  <!-- Header -->
+  <div class="card-header">
+    <div class="well-name">{{ well.name }}</div>
+    <div class="well-activity">
+      Activity: {{ well.activity }} | MD: {{ well.measuredDepth }} {{ well.unit }}
+    </div>
+  </div>
+
+  <!-- Two Column Layout -->
+  <div class="card-content">
+    <!-- Left Column -->
+    <div class="left-column">
+      <!-- Active Alarms -->
+      <div class="alarms-section">
+        <div class="section-title">
+          <span class="alarm-count">{{ well.activeAlarms.length }} Active alarms</span>
+        </div>
+        <div class="alarms-list">
+          <div *ngFor="let alarm of well.activeAlarms" class="alarm-item">
+            <span class="alarm-indicator"></span>
+            <span class="alarm-name">{{ alarm.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workflow Status -->
+      <div class="workflow-section">
+        <div class="section-title">Workflow</div>
+        <div class="workflow-list">
+          <div *ngFor="let workflow of well.workflows" class="workflow-item">
+            <span class="workflow-name">{{ workflow.name }}</span>
+            <span
+              class="workflow-status"
+              [style.background-color]="getStatusColor(workflow.status)">
+              {{ getStatusLabel(workflow.status) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <!-- Packoff Risk Meter -->
+      <div class="packoff-section">
+        <app-packoff-risk-meter
+          [score]="well.packoffRisk.score"
+          [maxScore]="well.packoffRisk.maxScore">
+        </app-packoff-risk-meter>
+      </div>
+
+      <!-- Time Indicator -->
+      <div class="time-indicator">
+        <div class="days-value">{{ well.daysToTotalDepth }} days</div>
+        <div class="days-label">to reach well total depth</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="ai-list">
+  <h3 *ngIf="data.title" class="list-title">{{ data.title }}</h3>
+  <ul class="list-items">
+    <li *ngFor="let item of data.items" class="list-item">
+      <span class="item-icon" *ngIf="item.icon">
+        <span class="material-icons">{{ item.icon }}</span>
+      </span>
+      <div class="item-content">
+        <div class="item-title">{{ item.title }}</div>
+        <div class="item-description" *ngIf="item.description">{{ item.description }}</div>
+      </div>
+      <span 
+        *ngIf="item.status" 
+        class="item-status"
+        [style.background-color]="getStatusColor(item.status)">
+        {{ item.status }}
+      </span>
+    </li>
+  </ul>
+</div>

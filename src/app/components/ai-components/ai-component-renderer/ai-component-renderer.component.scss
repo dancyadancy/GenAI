@@ -1,0 +1,18 @@
+.ai-component-renderer {
+  width: 100%;
+  margin: 8px 0;
+
+  .json-viewer {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+
+    pre {
+      margin: 0;
+      color: #ffffff;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.ai-table {
+  margin: 16px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+
+  .table-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+
+    thead {
+      background: rgba(255, 255, 255, 0.1);
+      
+      th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 500;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background-color 0.2s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        td {
+          padding: 12px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

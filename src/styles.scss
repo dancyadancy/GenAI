@@ -1,0 +1,56 @@
+// 深色主题变量
+$dark-primary: #1a1a2e;
+$dark-secondary: #16213e;
+$dark-accent: #0f3460;
+$dark-surface: #0f3460;
+$dark-background: #0a0e27;
+
+// 渐变色方案
+$gradient-start: #0a0e27;
+$gradient-middle: #16213e;
+$gradient-end: #0f3460;
+
+// 状态颜色
+$success-color: #4caf50;
+$warning-color: #ff9800;
+$error-color: #f44336;
+$info-color: #2196f3;
+
+// 全局样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f3460 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+html, body {
+  height: 100%;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(22, 33, 62, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 52, 96, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 52, 96, 0.8);
+}

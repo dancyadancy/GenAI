@@ -1,0 +1,35 @@
+<div class="packoff-risk-meter">
+  <div class="meter-container">
+    <svg width="200" height="200" class="circular-progress">
+      <!-- Background circle -->
+      <circle
+        cx="100"
+        cy="100"
+        r="96"
+        fill="none"
+        stroke="#16213e"
+        stroke-width="8"
+      />
+      <!-- Progress circle -->
+      <circle
+        cx="100"
+        cy="100"
+        r="96"
+        fill="none"
+        [attr.stroke]="color"
+        stroke-width="8"
+        stroke-linecap="round"
+        [attr.stroke-dasharray]="strokeDasharray"
+        [attr.stroke-dashoffset]="strokeDashoffset"
+        transform="rotate(-90 100 100)"
+        class="progress-circle"
+      />
+    </svg>
+    <div class="meter-content">
+      <div class="meter-title">Packoff risk</div>
+      <div class="score-value">{{ score }}</div>
+      <div class="score-label">Total Score</div>
+    </div>
+  </div>
+</div>
+

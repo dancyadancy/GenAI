@@ -1,0 +1,133 @@
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.app-header {
+  padding: 20px 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.4);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  height: calc(100vh - 80px);
+  position: relative;
+}
+
+.dashboard-section {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 36px;
+  position: relative;
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.chat-section {
+  width: 400px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: transparent;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.show-chat-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #2196f3;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+  transition: all 0.3s;
+  z-index: 100;
+
+  &:hover {
+    background: #1976d2;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(33, 150, 243, 0.6);
+  }
+
+  .material-icons {
+    font-size: 28px;
+  }
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .app-header {
+    padding: 16px 20px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+    
+    .dashboard-grid {
+      gap: 16px;
+    }
+  }
+}

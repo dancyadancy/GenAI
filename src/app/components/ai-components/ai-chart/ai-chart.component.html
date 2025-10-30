@@ -1,0 +1,23 @@
+<div class="ai-chart">
+  <h3 *ngIf="chartData.title" class="chart-title">{{ chartData.title }}</h3>
+  <div class="chart-container">
+    <!-- 简化的图表展示 -->
+    <div class="chart-placeholder">
+      <div class="chart-info">
+        <p>图表类型: {{ chartData.type }}</p>
+        <p>数据点数量: {{ chartData.data.length }}</p>
+      </div>
+      <div class="chart-visual">
+        <!-- 这里可以集成 Chart.js 或其他图表库 -->
+        <div class="chart-bars" *ngIf="chartData.type === 'bar'">
+          <div 
+            *ngFor="let item of chartData.data; let i = index"
+            class="chart-bar"
+            [style.height.%]="item.value / getMaxValue() * 100">
+            <span class="bar-label">{{ item.label || i + 1 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
