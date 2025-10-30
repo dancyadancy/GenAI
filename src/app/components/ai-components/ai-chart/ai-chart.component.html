@@ -1,14 +1,14 @@
 <div class="ai-chart">
   <h3 *ngIf="chartData.title" class="chart-title">{{ chartData.title }}</h3>
   <div class="chart-container">
-    <!-- 简化的图表展示 -->
+    <!-- Simplified chart display -->
     <div class="chart-placeholder">
       <div class="chart-info">
-        <p>图表类型: {{ chartData.type }}</p>
-        <p>数据点数量: {{ chartData.data.length }}</p>
+        <p>Chart type: {{ chartData.type }}</p>
+        <p>Number of data points: {{ chartData.data.length }}</p>
       </div>
       <div class="chart-visual">
-        <!-- 这里可以集成 Chart.js 或其他图表库 -->
+        <!-- You can integrate Chart.js or other chart libraries here -->
         <div class="chart-bars" *ngIf="chartData.type === 'bar'">
           <div 
             *ngFor="let item of chartData.data; let i = index"

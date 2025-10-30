@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent {
-  // 独立聊天页面组件，只显示聊天窗口
+  // Standalone chat page component, only displays the chat window
 }

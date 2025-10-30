@@ -21,15 +21,15 @@ export class ChatWindowComponent implements OnInit {
   presetQuestions = [
     {
       icon: 'description',
-      text: '显示所有井的状态表格'
+      text: 'Show status table for all wells'
     },
     {
       icon: 'warning',
-      text: '显示活动警报列表'
+      text: 'Show active alerts list'
     },
     {
       icon: 'show_chart',
-      text: '显示钻井性能趋势图表'
+      text: 'Show drilling performance trend chart'
     }
   ];
 
@@ -39,7 +39,7 @@ export class ChatWindowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 可以在这里加载历史消息
+    // Load conversation history here if needed
   }
 
   sendMessage(): void {
@@ -64,7 +64,7 @@ export class ChatWindowComponent implements OnInit {
         console.error('Error getting AI response:', error);
         this.messages.push({
           role: 'assistant',
-          content: '抱歉，处理您的请求时出现错误。请稍后再试。',
+          content: 'Sorry, an error occurred while processing your request. Please try again later.',
           timestamp: new Date()
         });
         this.isLoading = false;
