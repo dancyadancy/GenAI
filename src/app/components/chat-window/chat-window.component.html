@@ -35,7 +35,15 @@
       </div>
       <div class="history">
         Chat History
-        <div class="item">
+        <div
+          class="item clickable"
+          role="button"
+          tabindex="0"
+          aria-label="Go back to dashboard"
+          (click)="navigateToDashboard($event)"
+          (keydown.enter)="navigateToDashboard($event)"
+          (keydown.space)="navigateToDashboard($event)"
+        >
           <div class="name">
             Realtime monitoring
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

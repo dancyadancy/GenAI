@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.isChatPage = event.url === '/chatwithodin';
+      this.isChatPage = event.urlAfterRedirects === '/chatwithodin' || event.url === '/chatwithodin';
     });
   }
 
