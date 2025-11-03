@@ -24,8 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     // 监听路由变化
     this.routerSubscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event) => {
       this.isChatPage = event.url === '/chatwithodin';
       this.manageWellSubscription();
     });
