@@ -128,7 +128,8 @@ export class WellService implements OnDestroy {
   }
 
   private generateUpdatedWell(well: Well): Well {
-    const measuredDepthDelta = this.randomFloat(-25, 65);
+    const secondsPerInterval = this.updateIntervalMs / 1000;
+    const measuredDepthDelta = secondsPerInterval * this.randomFloat(0.8, 1.2);
     const packoffDelta = this.randomFloat(-0.4, 0.4);
     const daysDelta = Math.random() < 0.35 ? -1 : 0;
 
@@ -144,7 +145,7 @@ export class WellService implements OnDestroy {
 
     return {
       ...well,
-      measuredDepth: Math.max(0, Math.round(well.measuredDepth + measuredDepthDelta)),
+      measuredDepth: Math.max(0, parseFloat((well.measuredDepth + measuredDepthDelta).toFixed(1))),
       packoffRisk: {
         ...well.packoffRisk,
         score: this.clamp(parseFloat((well.packoffRisk.score + packoffDelta).toFixed(1)), 0, well.packoffRisk.maxScore)
