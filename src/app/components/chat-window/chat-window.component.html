@@ -61,7 +61,7 @@
         [class.user-message]="message.role === 'user'"
         [class.assistant-message]="message.role === 'assistant'">
         <div class="message-content" *ngIf="message.content">{{ message.content }}</div>
-        <!-- 动态组件渲染 -->
+        <!-- Dynamic component rendering -->
         <app-ai-component-renderer 
           *ngIf="message.component" 
           [componentData]="message.component">
