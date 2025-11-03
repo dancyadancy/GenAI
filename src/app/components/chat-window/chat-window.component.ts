@@ -105,8 +105,8 @@ export class ChatWindowComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  navigateToRealtimeMonitoring(event?: Event): void {
+  navigateToDashboard(event?: Event): void {
     event?.preventDefault();
-    this.router.navigate(['/realtime-monitoring']);
+    this.router.navigate(['/']);
   }
 }
