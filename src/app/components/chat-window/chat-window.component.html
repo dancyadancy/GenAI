@@ -3,18 +3,10 @@
   <div class="chat-header">
     <div class="header-title">Chat with OdinEye</div>
     <div class="header-actions">
-      <button 
-        *ngIf="!standaloneMode" 
-        class="icon-button" 
-        (click)="hideWindow()" 
-        title="Hide">
+      <button *ngIf="!standaloneMode" class="icon-button" (click)="hideWindow()" title="Hide">
         <span class="material-icons">remove</span>
       </button>
-      <button 
-        *ngIf="!standaloneMode" 
-        class="icon-button" 
-        (click)="openInNewWindow()" 
-        title="Open in new window">
+      <button *ngIf="!standaloneMode" class="icon-button" (click)="openInNewWindow()" title="Open in new window">
         <span class="material-icons">open_in_new</span>
       </button>
       <button class="icon-button" (click)="closeWindow()" title="Close">
@@ -23,74 +15,306 @@
     </div>
   </div>
 
-  <!-- Chat Content -->
-  <div class="chat-content" *ngIf="isOpen">
-    <!-- AI Avatar Section (when no messages) -->
-    <div class="ai-avatar-section" *ngIf="messages.length === 0">
-      <div class="ai-avatar">
-        <div class="avatar-circle">
-          <svg width="80" height="80" viewBox="0 0 80 80">
-            <circle cx="40" cy="40" r="35" fill="#2196f3" opacity="0.2" />
-            <circle cx="40" cy="40" r="25" fill="#2196f3" />
-            <!-- Eye pattern -->
-            <circle cx="35" cy="35" r="4" fill="#ffffff" />
-            <circle cx="45" cy="35" r="4" fill="#ffffff" />
-            <path d="M 30 45 Q 40 50 50 45" stroke="#ffffff" stroke-width="2" fill="none" />
+  <div class="main-content">
+    <!-- Chat History -->
+    <div class="chat-history" *ngIf="standaloneMode">
+      <div class="new-chat">
+        <button class="new-chat-button">
+          <svg width="122" height="36" viewBox="0 0 122 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 18C0 8.05888 8.05888 0 18 0H104C113.941 0 122 8.05888 122 18C122 27.9411 113.941 36 104 36H18C8.05888 36 0 27.9411 0 18Z"
+              fill="#63A4DB" />
+            <path
+              d="M27.168 14.3164H32V22.8838H30.2441V26L26.5244 22.8838H20.832V18.5195L17.6797 21.1641V18.1836H16V10H27.168V14.3164ZM27.168 18.1836H21.832V21.8838H26.8877L27.168 22.1162L29.2441 23.8564V21.8838H31V15.3164H27.168V18.1836ZM17 17.2002H18.6797V19.0361L20.5879 17.4355L20.8682 17.2002H26.168V11H17V17.2002ZM18.7598 13.3799C19.2015 13.3799 19.5594 13.738 19.5596 14.1797C19.5596 14.6215 19.2016 14.9805 18.7598 14.9805C18.318 14.9803 17.96 14.6214 17.96 14.1797C17.9601 13.7381 18.3181 13.38 18.7598 13.3799ZM21.584 13.3799C22.0257 13.3799 22.3836 13.738 22.3838 14.1797C22.3838 14.6215 22.0258 14.9805 21.584 14.9805C21.1422 14.9805 20.7842 14.6215 20.7842 14.1797C20.7843 13.738 21.1423 13.3799 21.584 13.3799ZM24.4043 13.3799C24.8459 13.38 25.2039 13.7381 25.2041 14.1797C25.2041 14.6214 24.846 14.9803 24.4043 14.9805C23.9625 14.9805 23.6035 14.6215 23.6035 14.1797C23.6037 13.738 23.9626 13.3799 24.4043 13.3799Z"
+              fill="white" />
+            <path
+              d="M41.3385 13.004H43.5225L46.8545 18.8C47.2605 19.556 47.6245 20.256 47.9465 20.802C47.9325 20.06 47.9185 19.304 47.9185 18.45V13.004H49.5845V23H47.3865L44.2085 17.554C43.7465 16.658 43.2985 15.86 42.9765 15.258C42.9905 16.014 43.0045 16.938 43.0045 17.764V23H41.3385V13.004ZM58.6336 20.858C58.2136 22.328 56.9676 23.196 55.2456 23.196C53.0756 23.196 51.6056 21.642 51.6056 19.36C51.6056 17.162 53.1456 15.566 55.2456 15.566C57.7236 15.566 58.7316 17.47 58.7456 19.528C58.7456 19.598 58.7456 19.71 58.7316 19.836H53.1596C53.2856 21.11 54.0976 21.894 55.2456 21.894C56.0716 21.894 56.7716 21.572 57.0236 20.858H58.6336ZM53.1736 18.688H57.1496C57.0516 17.652 56.4496 16.826 55.2456 16.826C54.0976 16.826 53.3276 17.568 53.1736 18.688ZM62.024 23L59.938 15.762H61.618L62.57 19.5C62.738 20.186 62.822 20.704 62.976 21.418H62.99C63.158 20.732 63.242 20.186 63.41 19.444L64.348 15.762H66.28L67.218 19.458C67.372 20.074 67.512 20.788 67.652 21.432H67.666C67.806 20.844 67.96 20.13 68.1 19.458L69.024 15.762H70.69L68.59 23H66.714L65.72 19.276C65.58 18.674 65.426 18.03 65.314 17.498H65.286C65.16 18.1 65.048 18.632 64.88 19.262L63.9 23H62.024ZM82.8092 20.648C82.4592 22.286 81.2132 23.196 79.4772 23.196C77.2932 23.196 75.6692 21.684 75.6692 19.388C75.6692 17.064 77.2932 15.566 79.4772 15.566C81.2692 15.566 82.4732 16.574 82.7532 18.058H81.2132C80.9472 17.358 80.4012 16.854 79.4492 16.854C78.1192 16.854 77.2652 17.974 77.2652 19.388C77.2652 20.802 78.1192 21.894 79.4492 21.894C80.3312 21.894 80.9892 21.488 81.2552 20.648H82.8092ZM84.8265 23V13.004H86.4225V17.036C86.8005 16.21 87.4725 15.566 88.5925 15.566C90.4685 15.566 91.1965 16.812 91.1965 18.478V23H89.5865V18.814C89.5865 17.694 89.2085 16.966 88.2005 16.966C87.1925 16.966 86.4505 17.834 86.4505 19.64V23H84.8265ZM93.4939 17.974C93.6759 16.826 94.6419 15.552 96.5319 15.552C98.9259 15.552 99.5839 16.994 99.5839 18.548V21.334C99.5839 21.88 99.6119 22.58 99.6959 23H98.0439C98.0159 22.72 98.0019 22.44 98.0019 22.146V21.81H97.9879C97.7499 22.398 97.1339 23.182 95.6919 23.182C94.0539 23.182 93.1439 22.174 93.1439 21.026C93.1439 19.024 95.5939 18.856 96.6439 18.688C97.5679 18.548 97.9879 18.366 97.9879 17.75C97.9879 17.176 97.4419 16.812 96.5599 16.812C95.7759 16.812 95.2019 17.26 95.0339 17.974H93.4939ZM94.7539 20.97C94.7539 21.544 95.2439 21.964 96.0979 21.964C97.0639 21.964 98.0159 21.362 98.0159 19.64V18.884C97.8619 19.29 97.4839 19.64 96.2519 19.878C95.2579 20.06 94.7539 20.368 94.7539 20.97ZM103.849 20.508C103.849 21.292 104.073 21.712 104.773 21.712H105.249V23.014L104.465 23.028C102.799 23.042 102.253 22.048 102.253 20.704V17.022H101.119V15.762H102.253V14.11L103.849 13.396V15.762H105.263V17.022H103.849V20.508Z"
+              fill="white" />
           </svg>
-        </div>
-        <div class="avatar-glow"></div>
-      </div>
-
-      <!-- Preset Questions -->
-      <div class="preset-questions">
-        <button
-          *ngFor="let question of presetQuestions"
-          class="preset-button"
-          (click)="sendPresetQuestion(question.text)">
-          <span class="material-icons">{{ question.icon }}</span>
-          <span>{{ question.text }}</span>
         </button>
       </div>
-    </div>
+      <div class="history">
+        Chat History
+        <div class="item">
+          <div class="name">
+            Realtime monitoring
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_36_7732)">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M16.1816 19.5117L10 15.0215L3.81836 19.5117L6.17871 12.2461L0 7.75293H7.6377L10 0.488281L12.3623 7.75293H20L13.8213 12.2461L16.1816 19.5117ZM10 13.1572L13.3115 15.5615L12.0469 11.6699L15.3584 9.26172H11.2656L10 5.36914L8.73438 9.26172H4.6416L7.95312 11.6699L6.68848 15.5615L10 13.1572Z"
+                  fill="#FABB42" />
+              </g>
+              <defs>
+                <clipPath id="clip0_36_7732">
+                  <rect width="20" height="20" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2 8C3.10457 8 4 8.89543 4 10C4 11.1046 3.10457 12 2 12C0.895431 12 0 11.1046 0 10C0 8.89543 0.895431 8 2 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M10 8C11.1046 8 12 8.89543 12 10C12 11.1046 11.1046 12 10 12C8.89543 12 8 11.1046 8 10C8 8.89543 8.89543 8 10 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M18 8C19.1046 8 20 8.89543 20 10C20 11.1046 19.1046 12 18 12C16.8954 12 16 11.1046 16 10C16 8.89543 16.8954 8 18 8Z"
+              fill="#ADB1C7" />
+          </svg>
 
-    <!-- Messages -->
-    <div class="messages-container" *ngIf="messages.length > 0">
-      <div
-        *ngFor="let message of messages"
-        class="message"
-        [class.user-message]="message.role === 'user'"
-        [class.assistant-message]="message.role === 'assistant'">
-        <div class="message-content" *ngIf="message.content">{{ message.content }}</div>
-        <!-- Dynamic component rendering -->
-        <app-ai-component-renderer 
-          *ngIf="message.component" 
-          [componentData]="message.component">
-        </app-ai-component-renderer>
-      </div>
-      <!-- Loading indicator -->
-      <div *ngIf="isLoading" class="message assistant-message">
-        <div class="loading-indicator">
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
+        </div>
+
+        <div class="item">
+          <div class="name">
+            What is the activity in the well?
+          </div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2 8C3.10457 8 4 8.89543 4 10C4 11.1046 3.10457 12 2 12C0.895431 12 0 11.1046 0 10C0 8.89543 0.895431 8 2 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M10 8C11.1046 8 12 8.89543 12 10C12 11.1046 11.1046 12 10 12C8.89543 12 8 11.1046 8 10C8 8.89543 8.89543 8 10 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M18 8C19.1046 8 20 8.89543 20 10C20 11.1046 19.1046 12 18 12C16.8954 12 16 11.1046 16 10C16 8.89543 16.8954 8 18 8Z"
+              fill="#ADB1C7" />
+          </svg>
+
+        </div>
+
+
+        <div class="item">
+          <div class="name">
+            Why I have torque and drag alarm in the well?
+          </div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2 8C3.10457 8 4 8.89543 4 10C4 11.1046 3.10457 12 2 12C0.895431 12 0 11.1046 0 10C0 8.89543 0.895431 8 2 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M10 8C11.1046 8 12 8.89543 12 10C12 11.1046 11.1046 12 10 12C8.89543 12 8 11.1046 8 10C8 8.89543 8.89543 8 10 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M18 8C19.1046 8 20 8.89543 20 10C20 11.1046 19.1046 12 18 12C16.8954 12 16 11.1046 16 10C16 8.89543 16.8954 8 18 8Z"
+              fill="#ADB1C7" />
+          </svg>
+
+        </div>
+
+        <div class="item">
+          <div class="name">
+            What is the active alarms in the well?
+          </div>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2 8C3.10457 8 4 8.89543 4 10C4 11.1046 3.10457 12 2 12C0.895431 12 0 11.1046 0 10C0 8.89543 0.895431 8 2 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M10 8C11.1046 8 12 8.89543 12 10C12 11.1046 11.1046 12 10 12C8.89543 12 8 11.1046 8 10C8 8.89543 8.89543 8 10 8Z"
+              fill="#ADB1C7" />
+            <path
+              d="M18 8C19.1046 8 20 8.89543 20 10C20 11.1046 19.1046 12 18 12C16.8954 12 16 11.1046 16 10C16 8.89543 16.8954 8 18 8Z"
+              fill="#ADB1C7" />
+          </svg>
+
         </div>
       </div>
     </div>
-  </div>
 
+    <!-- Chat Content -->
+    <div class="chat-content" *ngIf="isOpen">
+      <!-- AI Avatar Section (when no messages) -->
+      <div class="ai-avatar-section" *ngIf="messages.length === 0">
+        <div class="ai-avatar">
+          <div class="avatar-circle">
+            <svg width="262" height="255" viewBox="0 0 262 255" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="131" cy="127.5" rx="131" ry="127.5" fill="url(#paint0_radial_11_2178)" />
+              <circle cx="130.795" cy="127.251" r="40.8276" fill="url(#paint1_radial_11_2178)" />
+              <g filter="url(#filter0_d_11_2178)">
+                <circle cx="120.406" cy="124.566" r="24.4966" fill="url(#paint2_radial_11_2178)" />
+              </g>
+              <path opacity="0.1" d="M119.129 138.916L121.073 146.692" stroke="black" stroke-width="2"
+                stroke-linecap="round" />
+              <path opacity="0.1" d="M111.5 137L109.5 144" stroke="black" stroke-width="2" stroke-linecap="round" />
+              <path opacity="0.1" d="M126.907 135.027L134.684 142.804" stroke="black" stroke-width="2"
+                stroke-linecap="round" />
+              <path opacity="0.1" d="M130.795 129.195L140.516 131.139" stroke="black" stroke-width="2"
+                stroke-linecap="round" />
+              <path opacity="0.1" d="M130.795 121.418L142.46 119.474" stroke="black" stroke-width="2"
+                stroke-linecap="round" />
+              <circle cx="115.812" cy="123.035" r="12.7586" fill="#08253C" />
+              <circle cx="124.935" cy="119.85" r="4.5944" fill="white" />
+              <path
+                d="M118.76 140.249C109.462 130.95 102.431 121.109 98.5899 112.699C96.6704 108.496 95.5348 104.623 95.3283 101.337C95.122 98.0516 95.8427 95.2844 97.7232 93.4039C100.379 90.7478 104.792 90.4008 110.013 91.7308L109.74 92.8025C104.625 91.4994 100.732 91.959 98.5053 94.1859C96.9304 95.7607 96.237 98.1629 96.4321 101.267C96.627 104.371 97.7084 108.107 99.5959 112.24C103.369 120.501 110.312 130.236 119.543 139.467C128.773 148.697 138.508 155.64 146.77 159.413C150.902 161.301 154.639 162.382 157.742 162.577C160.846 162.772 163.249 162.079 164.823 160.504C167.193 158.135 167.559 153.878 165.94 148.291L167.003 147.984C168.646 153.655 168.429 158.463 165.605 161.286C163.725 163.167 160.958 163.887 157.673 163.681C154.387 163.475 150.513 162.339 146.31 160.419C137.9 156.579 128.059 149.548 118.76 140.249Z"
+                fill="url(#paint3_radial_11_2178)" />
+              <path
+                d="M118.759 114.441C128.058 105.142 137.899 98.1114 146.309 94.2706C150.512 92.3511 154.385 91.2155 157.671 91.009C160.956 90.8026 163.724 91.5234 165.604 93.4039C168.464 96.2637 168.65 101.159 166.935 106.931L165.875 106.616C167.566 100.924 167.223 96.5866 164.822 94.1859C163.247 92.6111 160.845 91.9177 157.741 92.1127C154.637 92.3077 150.901 93.389 146.768 95.2765C138.507 99.0497 128.771 105.993 119.541 115.223C110.311 124.454 103.368 134.189 99.5945 142.45C97.707 146.583 96.6256 150.319 96.4307 153.423C96.2356 156.527 96.9291 158.929 98.5039 160.504C100.695 162.695 104.499 163.176 109.498 161.948L109.761 163.022C104.652 164.277 100.336 163.9 97.7218 161.286C95.8413 159.406 95.1206 156.638 95.3269 153.353C95.5334 150.067 96.669 146.194 98.5885 141.991C102.429 133.581 109.46 123.74 118.759 114.441Z"
+                fill="url(#paint4_radial_11_2178)" />
+              <path
+                d="M131 139.179C117.868 139.179 105.961 137.914 97.3219 135.86C93.0068 134.834 89.4761 133.604 87.0107 132.218C84.5907 130.858 83 129.233 83 127.345C83 126.042 83.7639 124.867 84.9945 123.835C86.2295 122.801 88.0056 121.848 90.2084 120.985L90.6119 122.015C88.4631 122.857 86.8105 123.757 85.7049 124.683C84.5949 125.613 84.106 126.508 84.106 127.345C84.106 128.573 85.1707 129.915 87.5525 131.254C89.889 132.567 93.3069 133.768 97.5779 134.784C106.111 136.813 117.928 138.073 131 138.073C144.072 138.073 155.889 136.813 164.422 134.784C168.693 133.768 172.111 132.567 174.448 131.254C176.829 129.915 177.894 128.573 177.894 127.345C177.894 126.508 177.405 125.613 176.295 124.683C175.189 123.757 173.537 122.857 171.388 122.015L171.792 120.985C173.994 121.848 175.77 122.801 177.006 123.835C178.236 124.867 179 126.042 179 127.345C179 129.233 177.409 130.858 174.989 132.218C172.524 133.604 168.993 134.834 164.678 135.86C156.039 137.914 144.132 139.179 131 139.179Z"
+                fill="url(#paint5_radial_11_2178)" />
+              <g filter="url(#filter1_d_11_2178)">
+                <circle cx="145.896" cy="94.8448" r="3.31034" fill="url(#paint6_radial_11_2178)" />
+              </g>
+              <g filter="url(#filter2_d_11_2178)">
+                <circle cx="132.655" cy="138.983" r="3.31034" fill="url(#paint7_radial_11_2178)" />
+              </g>
+              <g filter="url(#filter3_d_11_2178)">
+                <circle cx="97.3445" cy="105.879" r="3.31034" fill="url(#paint8_radial_11_2178)" />
+              </g>
+              <defs>
+                <filter id="filter0_d_11_2178" x="92.9092" y="99.069" width="52.9932" height="52.9931"
+                  filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dx="-1" dy="1" />
+                  <feGaussianBlur stdDeviation="1" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix"
+                    values="0 0 0 0 0.0404707 0 0 0 0 0.165893 0 0 0 0 0.243859 0 0 0 0.1 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_11_2178" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_11_2178" result="shape" />
+                </filter>
+                <filter id="filter1_d_11_2178" x="142.586" y="91.5345" width="10.6211" height="10.6207"
+                  filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dx="2" dy="2" />
+                  <feGaussianBlur stdDeviation="1" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_11_2178" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_11_2178" result="shape" />
+                </filter>
+                <filter id="filter2_d_11_2178" x="129.345" y="135.672" width="10.6211" height="10.6207"
+                  filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dx="2" dy="2" />
+                  <feGaussianBlur stdDeviation="1" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_11_2178" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_11_2178" result="shape" />
+                </filter>
+                <filter id="filter3_d_11_2178" x="94.0342" y="102.569" width="10.6211" height="10.6207"
+                  filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dx="2" dy="2" />
+                  <feGaussianBlur stdDeviation="1" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_11_2178" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_11_2178" result="shape" />
+                </filter>
+                <radialGradient id="paint0_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(131 127.5) rotate(90) scale(116.025 119.21)">
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="#0DA1CA" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="paint1_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(124.963 127.251) rotate(53.1301) scale(48.6043)">
+                  <stop offset="0.05664" stop-color="#F8FEFF" />
+                  <stop offset="0.765873" stop-color="#A6DEFF" />
+                  <stop offset="1" stop-color="#074652" />
+                </radialGradient>
+                <radialGradient id="paint2_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(111.536 129.672) rotate(18.1149) scale(31.1465)">
+                  <stop stop-color="#2571C9" />
+                  <stop offset="1" stop-color="#24BFD2" />
+                </radialGradient>
+                <radialGradient id="paint3_radial_11_2178" cx="0" cy="0" r="1"
+                  gradientTransform="matrix(63.6749 42.0071 -12.496 19.0511 103 121)" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="white" />
+                  <stop offset="0.0890733" stop-color="#DAF9FF" />
+                  <stop offset="0.817308" stop-color="#5BE8FF" />
+                  <stop offset="0.951923" stop-color="#2AC4DD" />
+                </radialGradient>
+                <radialGradient id="paint4_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(112.5 121) rotate(111.668) scale(44.5529 13.3451)">
+                  <stop stop-color="white" />
+                  <stop offset="0.201923" stop-color="#D5F8FF" />
+                  <stop offset="0.817308" stop-color="#5BE8FF" />
+                  <stop offset="0.951923" stop-color="#2AC4DD" />
+                </radialGradient>
+                <radialGradient id="paint5_radial_11_2178" cx="0" cy="0" r="1"
+                  gradientTransform="matrix(77.7335 -8.97638 6.97699 15.4047 103.24 136.857)"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stop-color="white" />
+                  <stop offset="0.0702979" stop-color="#D0F4FF" />
+                  <stop offset="0.69677" stop-color="#5BDAFF" />
+                  <stop offset="0.951923" stop-color="#2AC4DD" />
+                </radialGradient>
+                <radialGradient id="paint6_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(144.793 93.7414) rotate(36.8699) scale(5.51724)">
+                  <stop stop-color="white" />
+                  <stop offset="0.779117" stop-color="#1EC7DE" />
+                  <stop offset="1" stop-color="#028698" />
+                </radialGradient>
+                <radialGradient id="paint7_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(131.552 137.879) rotate(36.8699) scale(5.51724)">
+                  <stop stop-color="white" />
+                  <stop offset="0.779117" stop-color="#00BCD5" />
+                  <stop offset="1" stop-color="#028698" />
+                </radialGradient>
+                <radialGradient id="paint8_radial_11_2178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(96.2411 104.776) rotate(36.8699) scale(5.51724)">
+                  <stop stop-color="white" />
+                  <stop offset="0.779117" stop-color="#1EC7DE" />
+                  <stop offset="1" stop-color="#028698" />
+                </radialGradient>
+              </defs>
+            </svg>
+
+          </div>
+          <div class="avatar-glow"></div>
+        </div>
+
+        <!-- Preset Questions -->
+        <div class="preset-questions">
+          <button *ngFor="let question of presetQuestions" class="preset-button"
+            (click)="sendPresetQuestion(question.text)">
+            <span class="material-icons">{{ question.icon }}</span>
+            <span>{{ question.text }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="messages-container" *ngIf="messages.length > 0">
+        <div *ngFor="let message of messages" class="message" [class.user-message]="message.role === 'user'"
+          [class.assistant-message]="message.role === 'assistant'">
+          <div class="message-content" *ngIf="message.content">{{ message.content }}</div>
+          <!-- Dynamic component rendering -->
+          <app-ai-component-renderer *ngIf="message.component" [componentData]="message.component">
+          </app-ai-component-renderer>
+        </div>
+        <!-- Loading indicator -->
+        <div *ngIf="isLoading" class="message assistant-message">
+          <div class="loading-indicator">
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+          </div>
+        </div>
+      </div>
+      
   <!-- Input Area -->
   <div class="chat-input-area" *ngIf="isOpen">
     <div class="input-wrapper">
-      <input
-        type="text"
-        class="message-input"
-        placeholder="Message..."
-        [(ngModel)]="inputMessage"
-        (keyup.enter)="sendMessage()"
-      />
+      <input type="text" class="message-input" placeholder="Message..." [(ngModel)]="inputMessage"
+        (keyup.enter)="sendMessage()" />
       <button class="send-button" (click)="sendMessage()">
         <span class="material-icons">send</span>
       </button>
+    </div>
+  </div>
     </div>
   </div>
 </div>

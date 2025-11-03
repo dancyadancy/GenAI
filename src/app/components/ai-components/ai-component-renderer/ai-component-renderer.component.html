@@ -1,23 +1,23 @@
 <div class="ai-component-renderer">
-  <!-- Table component -->
+  <!-- 表格组件 -->
   <app-ai-table 
     *ngIf="isTable()" 
     [data]="componentData.data">
   </app-ai-table>
 
-  <!-- List component -->
+  <!-- 列表组件 -->
   <app-ai-list 
     *ngIf="isList()" 
     [data]="componentData.data">
   </app-ai-list>
 
-  <!-- Chart component -->
+  <!-- 图表组件 -->
   <app-ai-chart 
     *ngIf="isChart()" 
     [data]="componentData.data">
   </app-ai-chart>
 
-  <!-- JSON display -->
+  <!-- JSON展示 -->
   <div *ngIf="isJson()" class="json-viewer">
     <pre>{{ componentData.data | json }}</pre>
   </div>
