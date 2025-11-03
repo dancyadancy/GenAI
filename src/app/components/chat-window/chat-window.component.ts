@@ -104,4 +104,9 @@ export class ChatWindowComponent implements OnInit {
     const url = this.router.serializeUrl(this.router.createUrlTree(['/chatwithodin']));
     window.open(url, '_blank');
   }
+
+  navigateToRealtimeMonitoring(event?: Event): void {
+    event?.preventDefault();
+    this.router.navigate(['/realtime-monitoring']);
+  }
 }

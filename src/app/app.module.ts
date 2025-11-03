@@ -10,6 +10,7 @@ import { WellCardComponent } from './components/well-card/well-card.component';
 import { PackoffRiskMeterComponent } from './components/packoff-risk-meter/packoff-risk-meter.component';
 import { ChatWindowComponent } from './components/chat-window/chat-window.component';
 import { ChatPageComponent } from './pages/chat-page/chat-page.component';
+import { RealtimeMonitoringPageComponent } from './pages/realtime-monitoring-page/realtime-monitoring-page.component';
 import { AITableComponent } from './components/ai-components/ai-table/ai-table.component';
 import { AIListComponent } from './components/ai-components/ai-list/ai-list.component';
 import { AIChartComponent } from './components/ai-components/ai-chart/ai-chart.component';
@@ -23,6 +24,7 @@ import { routes } from './app.routes';
     PackoffRiskMeterComponent,
     ChatWindowComponent,
     ChatPageComponent,
+    RealtimeMonitoringPageComponent,
     AITableComponent,
     AIListComponent,
     AIChartComponent,

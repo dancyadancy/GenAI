@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'OdinEye';
   wells: Well[] = [];
   isChatVisible: boolean = true;
-  isChatPage: boolean = false;
+  isStandalonePage: boolean = false;
 
   constructor(
     private wellService: WellService,
@@ -23,16 +23,23 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.isChatPage = event.url === '/chatwithodin';
+      const currentUrl = event.urlAfterRedirects ?? event.url;
+      this.isStandalonePage = this.shouldHideDashboard(currentUrl);
     });
   }
 
   ngOnInit(): void {
     // 检查当前路由
-    this.isChatPage = this.router.url === '/chatwithodin';
-    if (!this.isChatPage) {
+    this.isStandalonePage = this.shouldHideDashboard(this.router.url);
+    if (!this.isStandalonePage) {
       this.loadWells();
     }
+  }
+
+  private shouldHideDashboard(url: string): boolean {
+    const standaloneRoutes = ['/chatwithodin', '/realtime-monitoring'];
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    return standaloneRoutes.includes(cleanUrl);
   }
 
   loadWells(): void {
