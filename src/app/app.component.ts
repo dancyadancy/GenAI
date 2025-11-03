@@ -23,11 +23,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     // 监听路由变化
-    this.routerSubscription = this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event) => {
-      this.isChatPage = event.url === '/chatwithodin';
-      this.manageWellSubscription();
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isChatPage = event.url === '/chatwithodin';
+        this.manageWellSubscription();
+      }
     });
   }
 
