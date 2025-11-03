@@ -7,7 +7,7 @@ import { Alarm, Well, WorkflowStatus } from '../models/well.model';
   providedIn: 'root'
 })
 export class WellService implements OnDestroy {
-  private readonly updateIntervalMs = 3000;
+  private readonly updateIntervalMs = 1000;
 
   private readonly baseWells: Well[] = [
     {
@@ -129,9 +129,9 @@ export class WellService implements OnDestroy {
 
   private generateUpdatedWell(well: Well): Well {
     const secondsPerInterval = this.updateIntervalMs / 1000;
-    const measuredDepthDelta = secondsPerInterval * this.randomFloat(0.8, 1.2);
-    const packoffDelta = this.randomFloat(-0.4, 0.4);
-    const daysDelta = Math.random() < 0.35 ? -1 : 0;
+    const measuredDepthDelta = secondsPerInterval * this.randomFloat(0.95, 1.05);
+    const packoffDelta = this.randomFloat(-0.15, 0.15);
+    const daysDelta = Math.random() < 0.02 ? -1 : 0;
 
     const updatedAlarms = well.activeAlarms.map(alarm => ({
       ...alarm,
@@ -157,7 +157,7 @@ export class WellService implements OnDestroy {
   }
 
   private randomizeSeverity(current: Alarm['severity']): Alarm['severity'] {
-    if (Math.random() > 0.75) {
+    if (Math.random() > 0.95) {
       const severities: Alarm['severity'][] = ['low', 'medium', 'high'];
       return severities[this.randomInt(0, severities.length - 1)];
     }
@@ -165,7 +165,7 @@ export class WellService implements OnDestroy {
   }
 
   private randomizeWorkflowStatus(current: WorkflowStatus['status']): WorkflowStatus['status'] {
-    if (Math.random() > 0.85) {
+    if (Math.random() > 0.97) {
       const statuses: WorkflowStatus['status'][] = ['valid', 'action-needed', 'invalid'];
       const alternatives = statuses.filter(status => status !== current);
       return alternatives[this.randomInt(0, alternatives.length - 1)];
